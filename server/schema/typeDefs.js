@@ -7,7 +7,7 @@ const typeDefs = gql`
         username: String
         email: String
         messages: [Message]
-        friends: [User]
+        friends: User
     }
 
     type Message{
@@ -26,12 +26,14 @@ const typeDefs = gql`
         print: String
         getUsers: [User]
         getUser(username:String): User
+        me: User
     }
 
     type Mutation{
         addUser(username: String!, email:String!, password: String!): Auth
         userLogin(email: String!, password: String!): Auth
         deleteOneUser(_id: ID!) : User
+        addPartner(friendId: ID!): User
     }
     
 `;

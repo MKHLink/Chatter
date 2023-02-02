@@ -20,7 +20,19 @@ const resolvers = {
             .select('-__V -password')
             .populate('messages')
             .populate('friends');
-        }
+        },
+
+        me: async(parent,args,context)=>{
+            if(context.user){
+              const user = await User.findOne({_id:context.user._id})
+              .select('-__v -password')
+              .populate('friends');
+  
+              return user;
+            }
+
+            throw new AuthenticationError('User not logged in');
+          },
     },
 
     Mutation:{
@@ -52,6 +64,21 @@ const resolvers = {
            const user = User.deleteMany({_id: _id});
 
             return user;
+          },
+
+          addPartner: async(parent, {friendId},context)=>{
+            if(context.user)
+            {
+                const user = User.findOneAndUpdate(
+                    {_id:context.user._id},
+                    {friends: friendId},
+                    {new: true}
+                ).populate('friends');
+                
+
+                return user;
+            }
+            throw new AuthenticationError('User not logged in');
           }
     }
 };
