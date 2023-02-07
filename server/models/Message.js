@@ -1,4 +1,5 @@
 const {Schema, model} = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const messageSchema = new Schema(
     {
@@ -14,7 +15,13 @@ const messageSchema = new Schema(
 
         createdAt:{
             type: Date,
-            default: Date.now
+            default: Date.now,
+            get: timestamp => dateFormat(timestamp)
+        }
+    },
+    {
+        toJSON:{
+            getters: true
         }
     }
 );
