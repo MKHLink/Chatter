@@ -1,4 +1,4 @@
-const {User,Message} = require("../models/index");
+const {User,Message, Dates} = require("../models/index");
 const {signToken} = require('../utils/auth');
 const {AuthenticationError} = require('apollo-server-express');
 
@@ -13,7 +13,8 @@ const resolvers = {
             .select('-__V -password')
            
             .populate('friends')
-            .populate('messages');
+            .populate('messages')
+            .populate('dates');
         },
 
         getUser: async(parent, {username})=>{
@@ -21,7 +22,8 @@ const resolvers = {
             .select('-__V -password')
             
             .populate('friends')
-            .populate('messages');
+            .populate('messages')
+            .populate('dates');
         },
 
         me: async(parent,args,context)=>{
@@ -29,7 +31,8 @@ const resolvers = {
               const user = await User.findOne({_id:context.user._id})
               .select('-__v -password')
               .populate('friends')
-              .populate('messages');
+              .populate('messages')
+              .populate('dates');
   
               return user;
             }
@@ -102,6 +105,22 @@ const resolvers = {
             }
 
             throw new AuthenticationError('User not logged in');
+          },
+
+          createDate: async(parent, args, context)=>{
+            if(context.user){
+              const dates = await Dates.create({dateName: args.name, dateOfOccasion: args.date});
+
+              await User.findByIdAndUpdate(
+                {_id: context.user._id},
+                {$push: {dates: dates._id}},
+                {new: true}
+              );
+
+              return dates;
+            }
+
+            throw new AuthenticationError('Not logged in');
           }
     }
 };
