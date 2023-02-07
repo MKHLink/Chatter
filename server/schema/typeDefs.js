@@ -6,8 +6,9 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
-        messages: [Message]
         friends: User
+        messages: [Message]
+        dates: [Dates]
     }
 
     type Message{
@@ -15,6 +16,11 @@ const typeDefs = gql`
         textBody: String
         username: String
         createdAt: String
+    }
+
+    type Dates{
+        dateName: String
+        dateOfOccasion: String
     }
 
     type Auth{
@@ -27,6 +33,8 @@ const typeDefs = gql`
         getUsers: [User]
         getUser(username:String): User
         me: User
+        getMessages : Message
+        
     }
 
     type Mutation{
@@ -34,6 +42,7 @@ const typeDefs = gql`
         userLogin(email: String!, password: String!): Auth
         deleteOneUser(_id: ID!) : User
         addPartner(friendId: ID!): User
+        createMessage(text: String!): Message
     }
     
 `;

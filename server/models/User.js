@@ -21,6 +21,12 @@ const userSchema = new Schema(
             require: true
         },
 
+        friends: 
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            },
+
         messages: [
             {
                 type: Schema.Types.ObjectId,
@@ -28,11 +34,12 @@ const userSchema = new Schema(
             }
         ],
 
-        friends: 
+        dates: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'Dates'
             }
+        ]
         
     },
     {

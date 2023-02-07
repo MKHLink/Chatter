@@ -11,28 +11,32 @@ const resolvers = {
         getUsers: async()=>{
             return User.find()
             .select('-__V -password')
-            .populate('messages')
-            .populate('friends');
+           
+            .populate('friends')
+            .populate('messages');
         },
 
         getUser: async(parent, {username})=>{
             return User.findOne({username})
             .select('-__V -password')
-            .populate('messages')
-            .populate('friends');
+            
+            .populate('friends')
+            .populate('messages');
         },
 
         me: async(parent,args,context)=>{
             if(context.user){
               const user = await User.findOne({_id:context.user._id})
               .select('-__v -password')
-              .populate('friends');
+              .populate('friends')
+              .populate('messages');
   
               return user;
             }
 
             throw new AuthenticationError('User not logged in');
           },
+
     },
 
     Mutation:{
@@ -78,6 +82,25 @@ const resolvers = {
 
                 return user;
             }
+            throw new AuthenticationError('User not logged in');
+          },
+
+          createMessage: async(parent,{text}, context)=>{
+            if(context.user){
+              console.log(context.user._id);
+              const message  = await Message.create({textBody: text, username: context.user.username});
+
+              await User.findByIdAndUpdate(
+                {_id: context.user._id},
+                {
+                  $push: {messages: message._id}
+                },
+                {new: true}
+              );
+
+              return message;
+            }
+
             throw new AuthenticationError('User not logged in');
           }
     }

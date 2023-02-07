@@ -4,7 +4,7 @@ const messageSchema = new Schema(
     {
         textBody:{
             type: String,
-            max: 200
+            max: 400
         },
 
         username:{
