@@ -1,34 +1,87 @@
 import React from 'react';
-import {
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-    Input,
-  } from '@chakra-ui/react';
+
 
   import { Col, Row } from 'antd';
+  import { Button, Checkbox, Form, Input } from 'antd';
+
+  
 
 const Login = ()=>{
 
+   
+
     return(
-        <div>
+        <div style={{marginTop:50}}>
             <Row>
             <Col xs={20} sm={16} md={12} lg={8} xl={8}>
-            <h1>Login</h1>
+            <Form
+    name="basic"
+    labelCol={{
+      span: 8,
+    }}
+    wrapperCol={{
+      span: 16,
+    }}
+    style={{
+      maxWidth: 600,
+    }}
+    initialValues={{
+      remember: true,
+    }}
+    
+    autoComplete="off"
+  >
+    <Form.Item
+      label="Username"
+      name="username"
+      rules={[
+        {
+          required: true,
+          message: 'Please input your username!',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
 
-            <FormControl>
-                <FormLabel>Email address</FormLabel>
-                <Input type='email' />
-                <FormHelperText>We'll never share your email.</FormHelperText>
-            </FormControl>
+    <Form.Item
+      label="Password"
+      name="password"
+      rules={[
+        {
+          required: true,
+          message: 'Please input your password!',
+        },
+      ]}
+    >
+      <Input.Password />
+    </Form.Item>
 
-            <FormControl>
-                <FormLabel>Password</FormLabel>
-                <Input type='password' />
-            </FormControl>
+    <Form.Item
+      name="remember"
+      valuePropName="checked"
+      wrapperCol={{
+        offset: 8,
+        span: 16,
+      }}
+    >
+      <Checkbox>Remember me</Checkbox>
+    </Form.Item>
 
-            <p>Don't have an account? Register <a href='#'>here</a></p>
+    <Form.Item
+      wrapperCol={{
+        offset: 8,
+        span: 16,
+      }}
+    >
+      <Button type="primary" htmlType="submit">
+        Submit
+      </Button>
+      <p>Don't have an account? Register <a href='/signup'>here</a></p>
+    </Form.Item>
+  </Form>
+
+            
             </Col>
             </Row>
         </div>
