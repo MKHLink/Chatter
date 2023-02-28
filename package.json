@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "name": "chatter",
+  "description": "Chatter is a MERN stack application that lets users message each other and keep in touch.",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm start\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MKHLink/Chatter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MKHLink/Chatter/issues"
+  },
+  "homepage": "https://github.com/MKHLink/Chatter#readme"
+}
