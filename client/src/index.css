@@ -25,6 +25,21 @@ footer{
   
 }
 
-footer Row{
-  font-size: large;
+.ant-card{
+  margin-top: 1.5cm;
+  width: 50%;
+  height: 80vh;
+}
+
+.profile{
+  position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
 }
