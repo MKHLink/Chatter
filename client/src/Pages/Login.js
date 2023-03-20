@@ -42,74 +42,7 @@ const Login = ()=>{
         <div style={{marginTop:50}}>
             <Row>
             <Col xs={20} sm={16} md={12} lg={8} xl={8}>
-            {/* <Form 
-            onSubmit={handleFormSubmit}
-    name="basic"
-    labelCol={{
-      span: 8,
-    }}
-    wrapperCol={{
-      span: 16,
-    }}
-    style={{
-      maxWidth: 600,
-    }}
-    initialValues={{
-      remember: true,
-    }}
-    
-    
-    autoComplete="off"
-  >
-    <Form.Item
-      label="Username"
-      
-      rules={[
-        {
-          required: true,
-          message: 'Please input your username!',
-        },
-      ]}
-    >
-      <Input name="email" type="email" value={formState.email} onChange={handleChange}/>
-    </Form.Item>
-
-    <Form.Item
-      label="Password"
-      
-      rules={[
-        {
-          required: true,
-          message: 'Please input your password!',
-        },
-      ]}
-    >
-      <Input.Password name="password" type="password" value={formState.password} onChange={handleChange}/>
-    </Form.Item>
-
-    <Form.Item
-      name="remember"
-      valuePropName="checked"
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
-    >
-      <Checkbox>Remember me</Checkbox>
-    </Form.Item>
-
-    <Form.Item
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit" onSubmit={handleFormSubmit}>
-        Submit
-      </Button>
-      <p>Don't have an account? Register <a href='/signup'>here</a></p>
-    </Form.Item>
-  </Form> */}
+            
 
 <form onSubmit={handleFormSubmit}>
               <input

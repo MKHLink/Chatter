@@ -22,8 +22,9 @@ footer{
   padding: 10px;
   border-width: medium;
   border-top-color: black;
+  
 }
 
-Nav{
-  border: black;
+footer Row{
+  font-size: large;
 }
