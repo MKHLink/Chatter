@@ -5,7 +5,7 @@ import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 import { Col, Row } from 'antd';
-import { Button, Checkbox, Form, Input } from 'antd';
+
   
 const Login = ()=>{
 
@@ -43,6 +43,7 @@ const Login = ()=>{
             <Row>
             <Col xs={20} sm={16} md={12} lg={8} xl={8}>
             {/* <Form 
+            onSubmit={handleFormSubmit}
     name="basic"
     labelCol={{
       span: 8,
@@ -133,6 +134,8 @@ const Login = ()=>{
                 Submit
               </button>
             </form>
+
+            <p>Don't have an account? Register <a href='/signup'>here</a></p>
   {error && <div>Login Failed</div>}
             </Col>
             </Row>
