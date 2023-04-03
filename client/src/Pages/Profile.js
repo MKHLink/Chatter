@@ -6,7 +6,6 @@ import auth from '../utils/auth';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import { useQuery } from '@apollo/client';
-import { Navigate } from 'react-router-dom';
 const { Meta } = Card;
 
 const Profile =()=>{

@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import SignUp from "./Pages/SignUp";
 import LandingPage from "./Pages/Home";
 import Profile from "./Pages/Profile";
+import Partner from "./Pages/Partner";
 
 import {setContext} from '@apollo/client/link/context';
 import {ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -38,6 +39,7 @@ function App() {
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/landingpage' element={<LandingPage/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/partner' element={<Partner/>}/>
       </Routes>
     </Router>
    </ApolloProvider>

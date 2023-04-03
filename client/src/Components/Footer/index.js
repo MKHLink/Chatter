@@ -14,7 +14,9 @@ const Footer =()=>{
                 <Col span={6}>
                     <Link to="/profile">Me <UserOutlined /></Link>
                 </Col>
-                <Col span={6}>Partner <HeartOutlined /></Col>
+                <Col span={6}>
+                    <Link to="/partner">Partner <HeartOutlined /></Link>
+                </Col>
             </Row>
         </footer>
     );
