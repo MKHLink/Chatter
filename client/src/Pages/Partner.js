@@ -3,7 +3,7 @@ import {useMutation, useQuery } from "@apollo/client";
 import { Col, Row } from 'antd';
 import Footer from '../Components/Footer';
 
-import { QUERY_USER } from "../utils/queries";
+import { QUERY_USER, QUERY_ME } from "../utils/queries";
 import { ADD_PARTNER } from "../utils/mutations";
 
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
@@ -12,19 +12,32 @@ import { Avatar, Card } from 'antd';
 const { Meta } = Card;
 
 const Partner =()=>{
+    //sets form state
     const [username, setUsername] = useState('');
     
+    //query for getting users 
     const {loading,error, data, refetch} = useQuery(QUERY_USER,{
         fetchPolicy: "network-only",
     });
+
+    const {loading:myloading, data:dataMe} = useQuery(QUERY_ME);
+    const user = dataMe?.me || {};
+
+    //mutaution to add a user
     const [addPartner] = useMutation(ADD_PARTNER);
 
+    //form and changes handler functions
     const handleChange = (event)=>{
         setUsername(event.target.value);
       };
 
       const handleFormSubmit = (event) =>{
         event.preventDefault();
+
+        if(username === user.username)
+        {
+            return <p>You are a rockstar!!</p>
+        }
 
         refetch({username: username});
         
@@ -35,7 +48,39 @@ const Partner =()=>{
             variables:{friendId},
         });
       };
+
+      const resetSearch = () => {
+        setUsername("");
+        refetch({ username: "" });
+      };
+
+     
+
+      const showFriend =()=>{
+        if(!myloading && user.friends){
+            return(
+                <main>
+                    <Card cover={
+                <img
+                alt="example"
+                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                />
+                }
+                actions={[
+                ]}
+                >
+                <Meta
+                avatar={<Avatar src="https://joesch.moe/api/v1/random" />}
+                title={user.friends.username}
+                />
+        
+                </Card>
+                </main>
+            );
+          }
+      }
     
+      //function that shows search results
       const showUsers =()=>{
         if(loading)
         {
@@ -49,9 +94,7 @@ const Partner =()=>{
 
         if(data && data.getUser)
         {
-            console.log(data.getUser);
      
-            
             //if user do not have a partner
             return <main className='profile'>
             
@@ -80,17 +123,13 @@ const Partner =()=>{
         }
       }
 
-      const resetSearch = () => {
-        setUsername("");
-        refetch({ username: "" });
-      };
 
     return(
         <main>
             <Row>
             <Col xs={20} sm={16} md={12} lg={8} xl={8}>
 
-                <form onSubmit={handleFormSubmit}>
+                {showFriend() || (<form onSubmit={handleFormSubmit}>
 
                     <input type="text"
                         value={username} 
@@ -98,10 +137,9 @@ const Partner =()=>{
                     </input>
                     <button type="submit">Search</button>
                 </form>
-
-                {showUsers()}
-
+            )}
                 
+                {showUsers()}
             </Col>
         </Row>
 
