@@ -9,7 +9,9 @@ const Footer =()=>{
     return(
         <footer>
             <Row>
-                <Col span={6}>Dates <CalendarOutlined /></Col>
+                <Col span={6}>
+                    <Link to="/landingpage">Dates <CalendarOutlined /></Link>
+                </Col>
                 <Col span={6}>Notes <FileTextOutlined /></Col>
                 <Col span={6}>
                     <Link to="/profile">Me <UserOutlined /></Link>
