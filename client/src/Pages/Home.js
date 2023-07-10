@@ -54,6 +54,19 @@ const LandingPage =()=>{
                 </li>
                    );
                 })}
+
+                <br/>
+
+            <h3>From Partner</h3>
+            {userData.friends.dates.map((date)=>{
+                return(
+                    <li key={date.dateName}>
+                    <span>Name: {date.dateName}</span>
+                    <br/>
+                    <span>Date: {date.dateOfOccasion}</span>
+                </li>
+                   );
+            })}
             </ul>
             </div>
 
@@ -62,6 +75,16 @@ const LandingPage =()=>{
             <h2>Notes</h2>
             <ul>
                 {userData.messages.map((message)=>{
+                   return(
+                    <li key={message._id}>
+                    <span>{message.textBody}{console.log(message.textBody)}</span>
+                </li>
+                   );
+                })}
+
+                <br/>
+                <h3>From Partner</h3>
+                {userData.friends.messages.map((message)=>{
                    return(
                     <li key={message._id}>
                     <span>{message.textBody}{console.log(message.textBody)}</span>

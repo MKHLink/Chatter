@@ -30,7 +30,13 @@ const resolvers = {
             if(context.user){
               const user = await User.findOne({_id:context.user._id})
               .select('-__v -password')
-              .populate('friends')
+              .populate({
+                path:'friends',
+                populate:[
+                  {path:'messages'},
+                  {path: 'dates'}
+                ]
+              })
               .populate('messages')
               .populate('dates');
   
