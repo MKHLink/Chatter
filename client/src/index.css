@@ -12,6 +12,8 @@ code {
     monospace;
 }
 
+/* footer css here */
+
 footer{
   position: fixed;
   width: 100%;
@@ -43,3 +45,6 @@ footer{
                 align-items: center;
                 justify-content: center;
 }
+
+/* homepage css */
+
