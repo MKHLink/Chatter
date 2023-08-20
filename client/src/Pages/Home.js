@@ -45,28 +45,24 @@ const LandingPage =()=>{
             <div>
             <h2>Dates</h2>
             <ul>
-                {userData.dates.map((date)=>{
-                   return(
-                    <li key={date.dateName}>
-                    <span>Name: {date.dateName}{console.log(date.dateName)}</span>
-                    <br/>
-                    <span>Date: {date.dateOfOccasion}{console.log(date.dateOfOccasion)}</span>
-                </li>
-                   );
-                })}
+            {userData.dates && userData.dates.map((date) => (
+        <li key={date.dateName}>
+            <span>Name: {date.dateName}</span>
+            <br/>
+            <span>Date: {date.dateOfOccasion}</span>
+        </li>
+    ))}
 
                 <br/>
 
             <h3>From Partner</h3>
-            {userData.friends.dates.map((date)=>{
-                return(
-                    <li key={date.dateName}>
-                    <span>Name: {date.dateName}</span>
-                    <br/>
-                    <span>Date: {date.dateOfOccasion}</span>
-                </li>
-                   );
-            })}
+            {userData.friends && userData.friends.dates && userData.friends.dates.map((date) => (
+        <li key={date.dateName}>
+            <span>Name: {date.dateName}</span>
+            <br/>
+            <span>Date: {date.dateOfOccasion}</span>
+        </li>
+    ))}
             </ul>
             </div>
 
@@ -74,23 +70,19 @@ const LandingPage =()=>{
             <div>
             <h2>Notes</h2>
             <ul>
-                {userData.messages.map((message)=>{
-                   return(
-                    <li key={message._id}>
-                    <span>{message.textBody}{console.log(message.textBody)}</span>
-                </li>
-                   );
-                })}
+            {userData.messages && userData.messages.map((message) => (
+        <li key={message._id}>
+            <span>{message.textBody}</span>
+        </li>
+    ))}
 
                 <br/>
                 <h3>From Partner</h3>
-                {userData.friends.messages.map((message)=>{
-                   return(
-                    <li key={message._id}>
-                    <span>{message.textBody}{console.log(message.textBody)}</span>
-                </li>
-                   );
-                })}
+                {userData.friends && userData.friends.messages && userData.friends.messages.map((message) => (
+        <li key={message._id}>
+            <span>{message.textBody}</span>
+        </li>
+    ))}
             </ul>
             </div>
 
