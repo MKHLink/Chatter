@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
 import Footer from '../Components/Footer';
-import { QUERY_ME } from '../utils/queries';
-import { useQuery } from '@apollo/client';
+import { QUERY_ME} from '../utils/queries';
+import { CREATE_DATE } from '../utils/mutations';
+import { useQuery,useMutation } from '@apollo/client';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,6 +11,18 @@ const LandingPage =()=>{
     const {data,loading} = useQuery(QUERY_ME);
     const [showCalendar, setShowCalendar] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
+    const [name,setName] = useState(''); //date name
+
+    const [createDate] = useMutation(CREATE_DATE, {
+        update(cache, {data: {createDate}})
+        {
+            const {me} = cache.readQuery({query:QUERY_ME});
+            cache.writeQuery({
+                query: QUERY_ME,
+                data: {me:{...me, dates: [...me.dates, createDate]}},
+            });
+        },
+    });
 
     if(loading){
         return <p>Loading...</p>
@@ -23,21 +36,36 @@ const LandingPage =()=>{
         setShowCalendar(prevState  => !prevState);
     };
 
+    const handleSave = async (e) =>{
+        e.preventDefault();
+        try{
+            await createDate({
+                variables: {
+                    name, date: startDate.toISOString() }});
+        }catch(error){
+            console.log(error);
+        }
+        setShowCalendar(false);
+    };
+
     return(
         <main>
             <button onClick={handleDateClick}>Add Date</button>
             <div>
             {showCalendar && (
-            <>
+            <form onSubmit={handleSave}>
              <DatePicker selected={startDate} 
              onChange={(date) => setStartDate(date)} 
              showYearDropdown
              showMonthDropdown
              />
              <br/>
-             <input type="text" placeholder='Name'></input>
-             <button>Save</button>
-            </> 
+             <input type="text" placeholder='Name'
+                value={name} 
+                onChange={(e)=>setName(e.target.value)}>
+                </input>
+             <button type="submit">Save</button>
+            </form> 
            )}
            <br/>
             </div>
