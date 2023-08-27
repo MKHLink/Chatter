@@ -4,8 +4,8 @@ import { QUERY_ME} from '../utils/queries';
 import { CREATE_DATE } from '../utils/mutations';
 import { useQuery,useMutation } from '@apollo/client';
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import {DatePicker} from "antd";
+import {format, parseISO} from 'date-fns'
 
 const LandingPage =()=>{
     const {data,loading} = useQuery(QUERY_ME);
@@ -42,6 +42,7 @@ const LandingPage =()=>{
             await createDate({
                 variables: {
                     name, date: startDate.toISOString() }});
+                    setName('');
         }catch(error){
             console.log(error);
         }
