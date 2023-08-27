@@ -15,6 +15,7 @@ const Profile =()=>{
     const user = data?.me || {};
     console.log(user);
 
+  
     return(
         <main className='profile'>
             
@@ -27,7 +28,7 @@ const Profile =()=>{
     actions={[
         <SettingOutlined key="setting" />,
         <EditOutlined key="edit" />,
-        <EllipsisOutlined key="ellipsis" />,
+        <button onClick={auth.logout}>Sign Out</button>,
       ]}
     >
    <Meta

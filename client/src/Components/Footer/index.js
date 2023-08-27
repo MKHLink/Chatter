@@ -34,6 +34,8 @@ const Footer =()=>{
         }
     };
 
+  
+
     return(
         <footer>
             <Row>

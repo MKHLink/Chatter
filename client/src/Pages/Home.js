@@ -48,7 +48,6 @@ const LandingPage =()=>{
         }
         setShowCalendar(false);
     };
-
     return(
         <main>
             <button onClick={handleDateClick}>Add Date</button>
@@ -114,11 +113,6 @@ const LandingPage =()=>{
     ))}
             </ul>
             </div>
-
-          
-
-
-
             <Footer></Footer>
         </main>
     );
