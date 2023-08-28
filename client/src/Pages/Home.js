@@ -4,7 +4,7 @@ import { QUERY_ME} from '../utils/queries';
 import { CREATE_DATE } from '../utils/mutations';
 import { useQuery,useMutation } from '@apollo/client';
 
-import {DatePicker} from "antd";
+import {DatePicker, List, Avatar} from "antd";
 import {format, parseISO} from 'date-fns'
 
 const LandingPage =()=>{
@@ -73,24 +73,36 @@ const LandingPage =()=>{
             <div>
             <h2>Dates</h2>
             <ul>
-            {userData.dates && userData.dates.map((date) => (
-        <li key={date.dateName}>
-            <span>Name: {date.dateName}</span>
-            <br/>
-            <span>Date: {date.dateOfOccasion}</span>
-        </li>
-    ))}
+            <List
+    itemLayout="horizontal"
+    dataSource={userData.dates}
+    renderItem={date => (
+      <List.Item>
+        <List.Item.Meta
+          avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${date.dateName}`} />}
+          title={<span>{date.dateName}</span>}
+          description={<span>Date: {date.dateOfOccasion}</span>}
+        />
+      </List.Item>
+    )}
+  />
 
                 <br/>
 
             <h3>From Partner</h3>
-            {userData.friends && userData.friends.dates && userData.friends.dates.map((date) => (
-        <li key={date.dateName}>
-            <span>Name: {date.dateName}</span>
-            <br/>
-            <span>Date: {date.dateOfOccasion}</span>
-        </li>
-    ))}
+            <List
+    itemLayout="horizontal"
+    dataSource={userData.dates}
+    renderItem={date => (
+      <List.Item>
+        <List.Item.Meta
+          avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${date.dateName}`} />}
+          title={<span>{date.dateName}</span>}
+          description={<span>Date: {date.dateOfOccasion}</span>}
+        />
+      </List.Item>
+    )}
+  />
             </ul>
             </div>
 

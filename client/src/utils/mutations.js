@@ -55,3 +55,22 @@ mutation CreateMessage($text: String!) {
     }
   }
 `;
+
+export const DELETE_DATE = gql`
+mutation DeleteDate($dateId: ID!) {
+  deleteDate(dateID: $dateId) {
+    _id
+    dateName
+  }
+}
+`;
+
+export const DELETE_NOTE=gql`
+mutation DeleteNote($noteId: ID!) {
+  deleteNote(noteID: $noteId) {
+    _id
+    textBody
+    username
+  }
+}
+`;
