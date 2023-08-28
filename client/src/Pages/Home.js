@@ -104,47 +104,56 @@ const LandingPage =()=>{
             <div>
             <h2>Dates</h2>
             <ul>
-            <List
-    itemLayout="horizontal"
-    dataSource={userData.dates}
-    renderItem={date => (
-      <List.Item
-      actions={[
-        <EditOutlined
+
+            {userData.dates && userData.dates.length > 0 ? (
+          <List
+            itemLayout="horizontal"
+            dataSource={userData.dates}
+            renderItem={date => (
+              <List.Item
+                actions={[
+                  <EditOutlined
           key="edit"
-        //   onClick={() => handleEditDate(date.dateName)} 
+        //   onClick={() => handleEditDate(date.dateName)} // Add your edit function here
         />,
         <DeleteOutlined
           key="delete"
-          onClick={() => handleDeleteDate(date._id)}
+          onClick={() => handleDeleteDate(date._id)} // Add your delete function here
         />,
       ]}
-      >
-        <List.Item.Meta
-          avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${date.dateName}`} />}
-          title={<span>{date.dateName}</span>}
-          description={<span>Date: {date.dateOfOccasion}</span>}
-        />
-      </List.Item>
-    )}
-  />
+              >
+                <List.Item.Meta
+                  avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${date.dateName}`} />}
+                  title={<span>Name: {date.dateName}</span>}
+                  description={<span>Date: {date.dateOfOccasion}</span>}
+                />
+              </List.Item>
+            )}
+          />
+        ) : (
+          <p>No dates available.</p>
+        )}
 
                 <br/>
 
             <h3>From Partner</h3>
-            <List
-    itemLayout="horizontal"
-    dataSource={userData.friends.dates}
-    renderItem={date => (
-      <List.Item>
-        <List.Item.Meta
-          avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${date.dateName}`} />}
-          title={<span>{date.dateName}</span>}
-          description={<span>Date: {date.dateOfOccasion}</span>}
-        />
-      </List.Item>
-    )}
-  />
+            {userData.friends && userData.friends.dates && userData.friends.dates.length > 0 ? (
+          <List
+            itemLayout="horizontal"
+            dataSource={userData.friends.dates}
+            renderItem={date => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${date.dateName}`} />}
+                  title={<span>Name: {date.dateName}</span>}
+                  description={<span>Date: {date.dateOfOccasion}</span>}
+                />
+              </List.Item>
+            )}
+          />
+        ) : (
+          <p>No dates available.</p>
+        )}
             </ul>
             </div>
 
@@ -173,3 +182,4 @@ const LandingPage =()=>{
 };
 
 export default LandingPage;
+
