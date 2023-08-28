@@ -127,7 +127,27 @@ const resolvers = {
             }
 
             throw new AuthenticationError('Not logged in');
-          }
+          },
+
+          deleteDate: async(parent,{dateID},context)=>{
+            if(context.user){
+              const deleteDate = await Dates.findOneAndDelete(
+                {_id: dateID}
+              );
+              return deleteDate;
+            }
+            throw new AuthenticationError('User not logged in');
+          },
+
+          deleteNote: async(parent,{noteID},context)=>{
+            if(context.user){
+              const deleteNote = await Message.findOneAndDelete(
+                {_id: noteID}
+              );
+              return deleteNote;
+            }
+            throw new AuthenticationError('User not logged in');
+          },
     }
 };
 

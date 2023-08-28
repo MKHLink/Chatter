@@ -19,6 +19,7 @@ const typeDefs = gql`
     }
 
     type Dates{
+        _id: ID
         dateName: String
         dateOfOccasion: String
     }
@@ -44,6 +45,8 @@ const typeDefs = gql`
         addPartner(friendId: ID!): User
         createMessage(text: String!): Message
         createDate(name: String!, date: String!): Dates
+        deleteDate(dateID: ID!): Dates
+        deleteNote(noteID: ID!): Message
     }
     
 `;
