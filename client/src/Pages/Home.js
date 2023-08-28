@@ -161,19 +161,54 @@ const LandingPage =()=>{
             <div>
             <h2>Notes</h2>
             <ul>
-            {userData.messages && userData.messages.map((message) => (
-        <li key={message._id}>
-            <span>{message.textBody}</span>
-        </li>
-    ))}
+            
+{userData.messages && userData.messages.length > 0 ? (
+          <List
+            itemLayout="horizontal"
+            dataSource={userData.messages}
+            renderItem={message => (
+              <List.Item
+                actions={[
+                  <EditOutlined
+          key="edit"
+        //   onClick={() => handleEditDate(date.dateName)} // Add your edit function here
+        />,
+        <DeleteOutlined
+          key="delete"
+          onClick={() => handleDeleteDate(message._id)} // Add your delete function here
+        />,
+      ]}
+              >
+                <List.Item.Meta
+                  avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${message.textBody}`} />}
+                  title={<span>{message.textBody}</span>}
+                />
+              </List.Item>
+            )}
+          />
+        ) : (
+          <p>No notes available.</p>
+        )}
 
                 <br/>
                 <h3>From Partner</h3>
-                {userData.friends && userData.friends.messages && userData.friends.messages.map((message) => (
-        <li key={message._id}>
-            <span>{message.textBody}</span>
-        </li>
-    ))}
+
+{userData.friends && userData.friends.messages && userData.friends.messages.length > 0 ? (
+          <List
+            itemLayout="horizontal"
+            dataSource={userData.friends.messages}
+            renderItem={message => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${message.textBody}`} />}
+                  title={<span>{message.textBody}</span>}
+                />
+              </List.Item>
+            )}
+          />
+        ) : (
+          <p>No notes available.</p>
+        )}
             </ul>
             </div>
             <Footer></Footer>
