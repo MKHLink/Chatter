@@ -3,8 +3,10 @@ import Footer from '../Components/Footer';
 import { QUERY_ME} from '../utils/queries';
 import { CREATE_DATE } from '../utils/mutations';
 import { useQuery,useMutation } from '@apollo/client';
+import { DELETE_DATE } from '../utils/mutations';
 
 import {DatePicker, List, Avatar} from "antd";
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import {format, parseISO} from 'date-fns'
 
 const LandingPage =()=>{
@@ -13,6 +15,7 @@ const LandingPage =()=>{
     const [startDate, setStartDate] = useState(new Date());
     const [name,setName] = useState(''); //date name
 
+    //handles date creation query and updating the cache
     const [createDate] = useMutation(CREATE_DATE, {
         update(cache, {data: {createDate}})
         {
@@ -20,6 +23,18 @@ const LandingPage =()=>{
             cache.writeQuery({
                 query: QUERY_ME,
                 data: {me:{...me, dates: [...me.dates, createDate]}},
+            });
+        },
+    });
+
+    //date deleting and cache updating
+    const [deleteDate] = useMutation(DELETE_DATE,{
+        update(cache,{data: {deleteDate}}){
+            const {me} = cache.readQuery({query: QUERY_ME});
+            const updatedDates = me.dates.filter(date =>date._id !== deleteDate._id);
+            cache.writeQuery({
+                query: QUERY_ME,
+                data:{me:{...me,dates:updatedDates}},
             });
         },
     });
@@ -36,6 +51,7 @@ const LandingPage =()=>{
         setShowCalendar(prevState  => !prevState);
     };
 
+    //handles createDate function
     const handleSave = async (e) =>{
         e.preventDefault();
         try{
@@ -48,6 +64,21 @@ const LandingPage =()=>{
         }
         setShowCalendar(false);
     };
+
+    //handles the deleteDate function
+    const handleDeleteDate = async(dateId)=>{
+        console.log("deleting date ", dateId);
+        try{
+            await deleteDate({
+                variables:{
+                    dateId,
+                },
+            });
+        }catch(error){
+            console.log(error);
+        }
+    };
+
     return(
         <main>
             <button onClick={handleDateClick}>Add Date</button>
@@ -77,7 +108,18 @@ const LandingPage =()=>{
     itemLayout="horizontal"
     dataSource={userData.dates}
     renderItem={date => (
-      <List.Item>
+      <List.Item
+      actions={[
+        <EditOutlined
+          key="edit"
+        //   onClick={() => handleEditDate(date.dateName)} 
+        />,
+        <DeleteOutlined
+          key="delete"
+          onClick={() => handleDeleteDate(date._id)}
+        />,
+      ]}
+      >
         <List.Item.Meta
           avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${date.dateName}`} />}
           title={<span>{date.dateName}</span>}
@@ -92,7 +134,7 @@ const LandingPage =()=>{
             <h3>From Partner</h3>
             <List
     itemLayout="horizontal"
-    dataSource={userData.dates}
+    dataSource={userData.friends.dates}
     renderItem={date => (
       <List.Item>
         <List.Item.Meta

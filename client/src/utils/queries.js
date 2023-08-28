@@ -24,21 +24,25 @@ query Me {
       username
       email
       messages {
+        _id
         textBody
         username
         createdAt
       }
       dates {
+        _id
         dateName
         dateOfOccasion
       }
     }
     messages {
+      _id
       textBody
       username
       createdAt
     }
     dates {
+      _id
       dateName
       dateOfOccasion
     }
